@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Explora un hotel de insectos y descubre sus materiales." />
+    <title>Hotel de Insectos | Aula viva</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/estilos.css" />
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <main id="app" class="app-shell">
+      <!-- Bienvenida -->
+      <section id="bienvenida" class="view welcome-view is-active" aria-labelledby="welcome-title">
+        <div class="leaf leaf-one" aria-hidden="true"></div>
+        <div class="leaf leaf-two" aria-hidden="true"></div>
+        <div class="welcome-copy">
+          <p class="eyebrow">Aula viva · exploración interactiva</p>
+          <h1 id="welcome-title">Bienvenidos al<br /><em>Hotel de Insectos</em></h1>
+          <p class="lead">Un refugio lleno de pequeños huéspedes y grandes historias que descubrir.</p>
+          <button id="empezar" class="button button-primary button-large">Empezar <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="welcome-visual" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="hotel-illustration">
+            <div class="roof"></div><div class="floor floor-a"></div><div class="floor floor-b"></div><div class="floor floor-c"></div>
+          </div>
+          <span class="bee bee-a">✦</span><span class="bee bee-b">✦</span>
+        </div>
+        <div id="avionTransicion" class="paper-plane" aria-hidden="true">
+          <svg viewBox="0 0 96 64" focusable="false"><path d="M5 29 88 5 65 58 46 39 31 52 32 34 5 29Z" fill="#fffdf8" stroke="#245c4c" stroke-width="3" stroke-linejoin="round"/><path d="m32 34 56-29-42 34" fill="#dce986" stroke="#245c4c" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+      </section>
+
+      <!-- Intro: el vídeo y la animación de respaldo se controlan desde app.js -->
+      <section id="intro" class="view intro-view" aria-label="Entrada al hotel" hidden>
+        <div id="introFallback" class="intro-fallback" aria-hidden="true">
+          <div class="zoom-frame zoom-animated">
+            <img src="assets/hotel-animado.png" alt="Ilustración de un hotel de insectos" />
+            <div class="asset-fallback">Hotel ilustrado</div>
+          </div>
+          <div class="zoom-frame zoom-real">
+            <img src="assets/hotel-real.jpg" alt="Fotografía de un hotel de insectos" />
+            <div class="asset-fallback">Entrando al hotel…</div>
+          </div>
+          <p>Abriendo las puertas del hotel…</p>
+        </div>
+        <video id="videoEntrada" class="intro-video" muted playsinline preload="metadata">
+          <source src="assets/video-entrada.mp4" type="video/mp4" />
+        </video>
+        <button id="saltarIntro" class="button button-quiet skip-button">Saltar intro</button>
+      </section>
+
+      <!-- Hub principal -->
+      <section id="hub" class="view hub-view" aria-labelledby="hub-title" hidden>
+        <div class="section-heading">
+          <p class="eyebrow">Elige tu aventura</p>
+          <h2 id="hub-title">Dentro del hotel</h2>
+          <p>Hay muchas formas de conocer a sus habitantes.</p>
+        </div>
+        <div class="hub-grid">
+          <button class="hub-card hub-card-featured" data-go="hotel">
+            <span class="card-icon">⌾</span><span><strong>Ver el hotel</strong><small>7 partes por explorar</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="video">
+            <span class="card-icon">▷</span><span><strong>Vídeo explicativo</strong><small>Una visita guiada</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="podcast">
+            <span class="card-icon">♫</span><span><strong>Pódcast</strong><small>Escucha el hotel</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="info">
+            <span class="card-icon">i</span><span><strong>Páginas / Información</strong><small>El proyecto y sus ideas</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="ecoescuelas">
+            <span class="card-icon">♧</span><span><strong>Ecoescuelas</strong><small>Ideas y recursos del proyecto</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="juego">
+            <span class="card-icon">✦</span><span><strong>Juego interactivo + Leaderboard</strong><small>Rescata huéspedes y suma puntos</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="faq">
+            <span class="card-icon">?</span><span><strong>Preguntas frecuentes</strong><small>Respuestas para explorar</small></span><b aria-hidden="true">→</b>
+          </button>
+        </div>
+      </section>
+
+      <!-- Hotel interactivo -->
+      <section id="hotel" class="view content-view" aria-labelledby="hotel-title" hidden>
+        <div class="content-header">
+          <div><p class="eyebrow">Explora a tu ritmo</p><h2 id="hotel-title">El hotel, parte a parte</h2><p>Haz clic en cada punto para conocer el material y su misión.</p></div>
+          <div class="hotel-actions">
+            <button id="alternarHotel" class="button button-secondary">Ver versión ilustrada</button>
+          </div>
+        </div>
+        <div id="hotelScene" class="hotel-scene">
+          <!-- El tamaño de este escenario se calcula en app.js para que la foto completa y los puntos compartan la misma referencia. -->
+          <div id="hotelStage" class="hotel-stage">
+            <img id="imagenHotel" src="assets/hotel-real.jpg" alt="Hotel de insectos con siete zonas interactivas" />
+            <!-- Los puntos se generan desde js/app.js para editar coordenadas fácilmente. -->
+            <div id="puntosHotel" class="hotspots" aria-label="Zonas interactivas del hotel"></div>
+          </div>
+          <div class="scene-fallback"><span>Imagen del hotel</span><small>Coloca la foto en assets/hotel-real.jpg</small></div>
+        </div>
+        <p class="interaction-hint"><span>●</span> 7 materiales, 7 refugios posibles. Haz clic en cada punto para descubrirlos.</p>
+      </section>
+
+      <!-- Contenedores multimedia e información -->
+      <section id="video" class="view content-view media-view" aria-labelledby="video-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Audiovisual</p><h2 id="video-title">Vídeo explicativo</h2><p>Una breve visita guiada por el hotel.</p></div></div>
+        <div class="media-panel"><video id="videoInformativo" class="is-unavailable" controls preload="metadata"><source src="assets/video-informativo.mp4" type="video/mp4" /></video><div class="media-empty"><span>▷</span><h3>El vídeo llegará pronto</h3><p>Estamos preparando este contenido para tu próxima visita.</p></div></div>
+      </section>
+
+      <section id="podcast" class="view content-view media-view" aria-labelledby="podcast-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Para escuchar</p><h2 id="podcast-title">Pódcast</h2><p>Escucha los sonidos y secretos del hotel.</p></div></div>
+        <div class="audio-panel"><div class="audio-art">♬</div><div><h3>El pódcast llegará pronto</h3><p>Estamos grabando esta experiencia sonora.</p><audio id="audioPodcast" controls preload="metadata" hidden><source src="assets/podcast.mp3" type="audio/mpeg" /></audio></div></div>
+      </section>
+
+      <section id="info" class="view content-view info-view" aria-labelledby="info-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Sobre el proyecto</p><h2 id="info-title">Pequeños refugios,<br />un gran ecosistema</h2></div></div>
+        <!-- Las tarjetas se generan desde INFORMACION_GENERAL en js/app.js. -->
+        <div id="infoCards" class="info-grid"></div>
+      </section>
+
+      <!-- ECOESCUELAS: completa el objeto ECOESCUELAS en js/app.js con la información que se recopile. -->
+      <section id="ecoescuelas" class="view content-view eco-view" aria-labelledby="eco-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Aprender y actuar</p><h2 id="eco-title">Ecoescuelas</h2><p id="ecoIntro"></p></div></div>
+        <div id="ecoCards" class="eco-grid"></div>
+      </section>
+
+      <!-- Juego de reflejos: rescata huéspedes que aparecen en el jardín antes de que termine el tiempo. -->
+      <section id="juego" class="view content-view game-view" aria-labelledby="game-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Reto contrarreloj</p><h2 id="game-title">¡Al refugio!</h2><p>Toca cada huésped para ayudarle a llegar al hotel antes de que se acabe el tiempo.</p></div></div>
+        <div class="game-layout">
+          <div class="game-main">
+            <div class="game-stats" aria-live="polite"><span>Puntos <strong id="gameScore">0</strong></span><span>Tiempo <strong><span id="gameTime">30</span> s</strong></span><span>Racha <strong id="gameCombo">0</strong></span></div>
+            <div id="gameBoard" class="game-board" aria-label="Jardín de juego">
+              <div class="game-shelter" aria-hidden="true">⌂<small>Hotel refugio</small></div>
+              <button id="gameGuest" class="game-guest" type="button" aria-label="Toca para rescatar al huésped" disabled><span id="gameGuestIcon" aria-hidden="true">🐝</span><small id="gameGuestName">Pulsa «Empezar ronda»</small></button>
+              <p id="gameMessage" class="game-message" role="status">¡Cada huésped rescatado suma puntos!</p>
+            </div>
+            <div class="game-controls"><label class="player-name-label" for="playerName">Tu nombre para la tabla</label><input id="playerName" maxlength="18" autocomplete="nickname" placeholder="Explorador/a" /><button id="startGame" class="button button-primary" type="button">Empezar ronda · 30 s</button></div>
+          </div>
+          <aside class="leaderboard" aria-labelledby="leaderboard-title"><p class="eyebrow">Récords de este dispositivo</p><h3 id="leaderboard-title">Mejores puntuaciones</h3><ol id="leaderboardList"></ol><p class="leaderboard-note">Los resultados se guardan en este navegador. El código está preparado para conectar más adelante una tabla compartida.</p></aside>
+        </div>
+      </section>
+
+      <section id="faq" class="view content-view faq-view" aria-labelledby="faq-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Respuestas rápidas</p><h2 id="faq-title">Preguntas frecuentes</h2><p>Abre cada tema para leer la respuesta.</p></div></div>
+        <div id="faqList" class="faq-list"></div>
+      </section>
+    </main>
+
+    <nav class="quick-actions" aria-label="Acciones rápidas">
+      <button id="abrirGuia" class="quick-action" type="button"><span aria-hidden="true">☰</span><span>Qué hacer</span></button>
+      <button id="abrirPregunta" class="quick-action" type="button"><span aria-hidden="true">✉</span><span>Pregunta</span></button>
+      <button id="volverMenu" class="quick-action quick-home" type="button" title="Volver al inicio"><span aria-hidden="true">⌂</span><span>Inicio</span></button>
+    </nav>
+
+    <div id="modalGuia" class="modal" role="dialog" aria-modal="true" aria-labelledby="guideTitle" hidden>
+      <div class="modal-overlay" data-close-modal></div><article class="utility-card"><button class="modal-close" data-close-modal aria-label="Cerrar ventana">×</button><p class="eyebrow">Guía rápida</p><h2 id="guideTitle">¿Qué hacer?</h2><ol class="guide-steps"><li><strong>Empieza el recorrido</strong><span>Pulsa “Empezar” y, si quieres, salta la intro con su botón.</span></li><li><strong>Explora el hotel</strong><span>Toca los puntos para conocer sus materiales y huéspedes.</span></li><li><strong>Prueba las secciones</strong><span>Juega, escucha el pódcast y descubre el proyecto.</span></li><li><strong>Vuelve cuando quieras</strong><span>Usa “Inicio” o el botón atrás de tu dispositivo.</span></li></ol></article>
+    </div>
+
+    <div id="modalPregunta" class="modal" role="dialog" aria-modal="true" aria-labelledby="questionTitle" hidden>
+      <div class="modal-overlay" data-close-modal></div><article class="utility-card question-card"><button class="modal-close" data-close-modal aria-label="Cerrar ventana">×</button><p class="eyebrow">Contacto</p><h2 id="questionTitle">Envíanos una pregunta</h2><p>Escribe tu duda y te responderemos cuando el equipo configure el correo.</p><form id="questionForm" novalidate><label for="questionName">Tu nombre</label><input id="questionName" name="name" maxlength="60" autocomplete="name" required /><label for="questionEmail">Tu correo</label><input id="questionEmail" name="email" type="email" maxlength="120" autocomplete="email" required /><label for="questionText">Pregunta</label><textarea id="questionText" name="question" rows="4" minlength="8" maxlength="1200" required></textarea><button class="button button-primary" type="submit">Enviar pregunta</button><p id="questionStatus" class="form-status" role="status" aria-live="polite"></p></form></article>
+    </div>
+
+    <!-- Modal de cada material -->
+    <div id="modalMaterial" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+      <div class="modal-overlay" data-close-modal></div>
+      <article class="modal-card">
+        <button class="modal-close" data-close-modal aria-label="Cerrar ventana">×</button>
+        <div id="modalImage" class="modal-image"><img id="imagenInsecto" alt="" /><div class="insect-fallback">⌁<span>Imagen de insecto</span></div></div>
+        <div class="modal-content"><p id="modalNumber" class="eyebrow"></p><h2 id="modalTitle"></h2><p id="modalDescription"></p><div class="eco-note"><span aria-hidden="true">✦</span><div><strong>Función ecológica</strong><p id="modalFunction"></p></div></div></div>
+      </article>
+    </div>
+  </body>
+</html>
