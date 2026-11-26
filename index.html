@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Explora un hotel de insectos y descubre sus materiales." />
+    <title>Hotel de Insectos | Aula viva</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/estilos.css" />
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <main id="app" class="app-shell">
+      <!-- Bienvenida -->
+      <section id="bienvenida" class="view welcome-view is-active" aria-labelledby="welcome-title">
+        <div class="leaf leaf-one" aria-hidden="true"></div>
+        <div class="leaf leaf-two" aria-hidden="true"></div>
+        <div class="welcome-copy">
+          <p class="eyebrow">Aula viva · exploración interactiva</p>
+          <h1 id="welcome-title">Bienvenidos al<br /><em>Hotel de Insectos</em></h1>
+          <p class="lead">Un refugio lleno de pequeños huéspedes y grandes historias que descubrir.</p>
+          <button id="empezar" class="button button-primary button-large">Empezar <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="welcome-visual" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="hotel-illustration">
+            <div class="roof"></div><div class="floor floor-a"></div><div class="floor floor-b"></div><div class="floor floor-c"></div>
+          </div>
+          <span class="bee bee-a">✦</span><span class="bee bee-b">✦</span>
+        </div>
+      </section>
+
+      <!-- Intro: el vídeo y la animación de respaldo se controlan desde app.js -->
+      <section id="intro" class="view intro-view" aria-label="Entrada al hotel" hidden>
+        <div id="introFallback" class="intro-fallback" aria-hidden="true">
+          <div class="zoom-frame zoom-animated">
+            <img src="assets/hotel-animado.png" alt="Ilustración de un hotel de insectos" />
+            <div class="asset-fallback">Hotel ilustrado</div>
+          </div>
+          <div class="zoom-frame zoom-real">
+            <img src="assets/hotel-real.jpg" alt="Fotografía de un hotel de insectos" />
+            <div class="asset-fallback">Entrando al hotel…</div>
+          </div>
+          <p>Abriendo las puertas del hotel…</p>
+        </div>
+        <video id="videoEntrada" class="intro-video" muted playsinline preload="metadata">
+          <source src="assets/video-entrada.mp4" type="video/mp4" />
+        </video>
+        <button id="saltarIntro" class="button button-quiet skip-button">Saltar intro</button>
+      </section>
+
+      <!-- Hub principal -->
+      <section id="hub" class="view hub-view" aria-labelledby="hub-title" hidden>
+        <div class="section-heading">
+          <p class="eyebrow">Elige tu aventura</p>
+          <h2 id="hub-title">Dentro del hotel</h2>
+          <p>Hay muchas formas de conocer a sus habitantes.</p>
+        </div>
+        <div class="hub-grid">
+          <button class="hub-card hub-card-featured" data-go="hotel">
+            <span class="card-icon">⌾</span><span><strong>Ver el hotel</strong><small>7 partes por explorar</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="video">
+            <span class="card-icon">▷</span><span><strong>Vídeo explicativo</strong><small>Una visita guiada</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="podcast">
+            <span class="card-icon">♫</span><span><strong>Pódcast</strong><small>Escucha el hotel</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="info">
+            <span class="card-icon">i</span><span><strong>Páginas / Información</strong><small>El proyecto y sus ideas</small></span><b aria-hidden="true">→</b>
+          </button>
+        </div>
+      </section>
+
+      <!-- Hotel interactivo -->
+      <section id="hotel" class="view content-view" aria-labelledby="hotel-title" hidden>
+        <div class="content-header">
+          <div><p class="eyebrow">Explora a tu ritmo</p><h2 id="hotel-title">El hotel, parte a parte</h2><p>Haz clic en cada punto para conocer el material y su misión.</p></div>
+          <div class="hotel-actions">
+            <button id="alternarHotel" class="button button-secondary">Ver versión ilustrada</button>
+          </div>
+        </div>
+        <div id="hotelScene" class="hotel-scene">
+          <!-- El tamaño de este escenario se calcula en app.js para que la foto completa y los puntos compartan la misma referencia. -->
+          <div id="hotelStage" class="hotel-stage">
+            <img id="imagenHotel" src="assets/hotel-real.jpg" alt="Hotel de insectos con siete zonas interactivas" />
+            <!-- Los puntos se generan desde js/app.js para editar coordenadas fácilmente. -->
+            <div id="puntosHotel" class="hotspots" aria-label="Zonas interactivas del hotel"></div>
+          </div>
+          <div class="scene-fallback"><span>Imagen del hotel</span><small>Coloca la foto en assets/hotel-real.jpg</small></div>
+        </div>
+        <p class="interaction-hint"><span>●</span> 7 materiales, 7 refugios posibles. Haz clic en cada punto para descubrirlos.</p>
+      </section>
+
+      <!-- Contenedores multimedia e información -->
+      <section id="video" class="view content-view media-view" aria-labelledby="video-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Audiovisual</p><h2 id="video-title">Vídeo explicativo</h2><p>Una breve visita guiada por el hotel.</p></div></div>
+        <div class="media-panel"><video id="videoInformativo" class="is-unavailable" controls preload="metadata"><source src="assets/video-informativo.mp4" type="video/mp4" /></video><div class="media-empty"><span>▷</span><h3>El vídeo llegará pronto</h3><p>Estamos preparando este contenido para tu próxima visita.</p></div></div>
+      </section>
+
+      <section id="podcast" class="view content-view media-view" aria-labelledby="podcast-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Para escuchar</p><h2 id="podcast-title">Pódcast</h2><p>Escucha los sonidos y secretos del hotel.</p></div></div>
+        <div class="audio-panel"><div class="audio-art">♬</div><div><h3>El pódcast llegará pronto</h3><p>Estamos grabando esta experiencia sonora.</p><audio id="audioPodcast" controls preload="metadata" hidden><source src="assets/podcast.mp3" type="audio/mpeg" /></audio></div></div>
+      </section>
+
+      <section id="info" class="view content-view info-view" aria-labelledby="info-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Sobre el proyecto</p><h2 id="info-title">Pequeños refugios,<br />un gran ecosistema</h2></div></div>
+        <!-- Las tarjetas se generan desde INFORMACION_GENERAL en js/app.js. -->
+        <div id="infoCards" class="info-grid"></div>
+      </section>
+    </main>
+
+    <!-- Pizarra guía: el PNG es opcional; el marco de madera y la pizarra verde son su respaldo CSS. -->
+    <aside id="guiaPizarra" class="guide" aria-label="Pizarra guía">
+      <div id="pizarraMarco" class="guide-board">
+        <img id="pizarraGuia" src="assets/pizarra.png" alt="" aria-hidden="true" />
+        <div id="guideBubble" class="guide-bubble" role="status">¡Hola! ¿Quieres empezar a aprender sobre el hotel de insectos?</div>
+      </div>
+      <div class="guide-bottom"><button id="volverMenu" class="menu-button" type="button" title="Volver al menú principal"><span aria-hidden="true">⌂</span><span>Menú</span></button></div>
+    </aside>
+
+    <!-- Modal de cada material -->
+    <div id="modalMaterial" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+      <div class="modal-overlay" data-close-modal></div>
+      <article class="modal-card">
+        <button class="modal-close" data-close-modal aria-label="Cerrar ventana">×</button>
+        <div id="modalImage" class="modal-image"><img id="imagenInsecto" alt="" /><div class="insect-fallback">⌁<span>Imagen de insecto</span></div></div>
+        <div class="modal-content"><p id="modalNumber" class="eyebrow"></p><h2 id="modalTitle"></h2><p id="modalDescription"></p><div class="eco-note"><span aria-hidden="true">✦</span><div><strong>Función ecológica</strong><p id="modalFunction"></p></div></div></div>
+      </article>
+    </div>
+  </body>
+</html>
