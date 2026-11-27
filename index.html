@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Explora un hotel de insectos y descubre sus materiales." />
+    <title>Hotel de Insectos | Aula viva</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/estilos.css" />
+    <script src="js/app.js" defer></script>
+    <script src="js/asistente.js" defer></script>
+    <script src="js/juego.js" defer></script>
+  </head>
+  <body>
+    <main id="app" class="app-shell">
+      <!-- Bienvenida -->
+      <section id="bienvenida" class="view welcome-view is-active" aria-labelledby="welcome-title">
+        <div class="leaf leaf-one" aria-hidden="true"></div>
+        <div class="leaf leaf-two" aria-hidden="true"></div>
+        <div class="welcome-copy">
+          <p class="eyebrow">Aula viva · exploración interactiva</p>
+          <h1 id="welcome-title">Bienvenidos al<br /><em>Hotel de Insectos</em></h1>
+          <p class="lead">Un refugio lleno de pequeños huéspedes y grandes historias que descubrir.</p>
+          <button id="empezar" class="button button-primary button-large">Empezar <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="welcome-visual" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="hotel-illustration">
+            <div class="roof"></div><div class="floor floor-a"></div><div class="floor floor-b"></div><div class="floor floor-c"></div>
+          </div>
+          <span class="bee bee-a">🐝</span><span class="bee bee-b">🐝</span>
+        </div>
+        <div id="avionTransicion" class="paper-plane" aria-hidden="true">
+          <svg viewBox="0 0 96 64" focusable="false"><path d="M5 29 88 5 65 58 46 39 31 52 32 34 5 29Z" fill="#fffdf8" stroke="#245c4c" stroke-width="3" stroke-linejoin="round"/><path d="m32 34 56-29-42 34" fill="#dce986" stroke="#245c4c" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+      </section>
+
+      <!-- Intro: el vídeo y la animación de respaldo se controlan desde app.js -->
+      <section id="intro" class="view intro-view" aria-label="Entrada al hotel" hidden>
+        <div id="introFallback" class="intro-fallback" aria-hidden="true">
+          <div class="zoom-frame zoom-animated">
+            <img src="assets/hotel-animado.png" alt="Ilustración de un hotel de insectos" />
+            <div class="asset-fallback">Hotel ilustrado</div>
+          </div>
+          <div class="zoom-frame zoom-real">
+            <img src="assets/hotel-real.jpg" alt="Fotografía de un hotel de insectos" />
+            <div class="asset-fallback">Entrando al hotel…</div>
+          </div>
+          <p>Abriendo las puertas del hotel…</p>
+        </div>
+        <video id="videoEntrada" class="intro-video" muted playsinline preload="metadata">
+          <source src="assets/video-entrada.mp4" type="video/mp4" />
+        </video>
+        <button id="saltarIntro" class="button button-quiet skip-button">Saltar intro</button>
+      </section>
+
+      <!-- Hub principal -->
+      <section id="hub" class="view hub-view" aria-labelledby="hub-title" hidden>
+        <div class="section-heading">
+          <p class="eyebrow">Elige tu aventura</p>
+          <h2 id="hub-title">Dentro del hotel</h2>
+          <p>Hay muchas formas de conocer a sus habitantes.</p>
+        </div>
+        <div class="hub-grid">
+          <button class="hub-card hub-card-featured" data-go="hotel">
+            <span class="card-icon" aria-hidden="true">▦</span><span><strong>Los 7 materiales del hotel</strong><small>Explora la imagen y sus refugios</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="juego">
+            <span class="card-icon" aria-hidden="true">🐞</span><span><strong>Juego</strong><small>Defiende el hotel y consulta el leaderboard</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="ecoescuelas">
+            <span class="card-icon" aria-hidden="true">♧</span><span><strong>Ecoescuelas</strong><small>Ideas y recursos del proyecto</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="info">
+            <span class="card-icon" aria-hidden="true">i</span><span><strong>Info</strong><small>Vídeo, pódcast, Canva e información</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="preguntas">
+            <span class="card-icon" aria-hidden="true">?</span><span><strong>Preguntas frecuentes</strong><small>Respuestas claras sobre el proyecto y la web</small></span><b aria-hidden="true">→</b>
+          </button>
+          <button class="hub-card" data-go="nosotros">
+            <span class="card-icon" aria-hidden="true">◉</span><span><strong>Sobre nosotros</strong><small>El equipo detrás del proyecto</small></span><b aria-hidden="true">→</b>
+          </button>
+        </div>
+      </section>
+
+      <!-- Hotel interactivo -->
+      <section id="hotel" class="view content-view" aria-labelledby="hotel-title" hidden>
+        <div class="content-header">
+          <div><p class="eyebrow">Explora a tu ritmo</p><h2 id="hotel-title">El hotel, parte a parte</h2><p>Haz clic en cada punto para conocer el material y su misión.</p></div>
+          <div class="hotel-actions">
+            <button id="alternarHotel" class="button button-secondary">Ver foto real</button>
+          </div>
+        </div>
+        <div id="hotelScene" class="hotel-scene">
+          <!-- El tamaño de este escenario se calcula en app.js para que la foto completa y los puntos compartan la misma referencia. -->
+          <div id="hotelStage" class="hotel-stage">
+            <img id="imagenHotel" src="assets/hotel-animado.png" alt="Ilustración interactiva de un hotel de insectos con siete zonas" />
+            <!-- Los puntos se generan desde js/app.js para editar coordenadas fácilmente. -->
+            <div id="puntosHotel" class="hotspots" aria-label="Zonas interactivas del hotel"></div>
+          </div>
+          <div class="scene-fallback"><span>Imagen del hotel</span><small>Coloca la foto en assets/hotel-real.jpg</small></div>
+        </div>
+        <p class="interaction-hint"><span>●</span> 7 materiales, 7 refugios posibles. Haz clic en cada punto para descubrirlos.</p>
+      </section>
+
+      <!-- Info reúne sus formatos en subapartados seleccionables. -->
+      <section id="info" class="view content-view info-view" aria-labelledby="info-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Audiovisual y presentación</p><h2 id="info-title">Info</h2><p>Elige el formato que quieres consultar.</p></div></div>
+        <div class="info-tabs" role="tablist" aria-label="Apartados de Info">
+          <button id="infoTabVideo" class="info-tab is-selected" type="button" role="tab" data-info-tab="video" aria-controls="infoPanelVideo" aria-selected="true">Vídeo</button>
+          <button id="infoTabPodcast" class="info-tab" type="button" role="tab" data-info-tab="podcast" aria-controls="infoPanelPodcast" aria-selected="false" tabindex="-1">Pódcast</button>
+          <button id="infoTabCanva" class="info-tab" type="button" role="tab" data-info-tab="canva" aria-controls="infoPanelCanva" aria-selected="false" tabindex="-1">Presentación de Canva</button>
+          <button id="infoTabDesarrollada" class="info-tab" type="button" role="tab" data-info-tab="desarrollada" aria-controls="infoPanelDesarrollada" aria-selected="false" tabindex="-1">Información desarrollada</button>
+        </div>
+        <section id="infoPanelVideo" class="info-panel" role="tabpanel" aria-labelledby="infoTabVideo">
+          <div class="content-header"><div><p class="eyebrow">Vídeo del proyecto</p><h3>Una visita guiada</h3><p>El reproductor está preparado para añadir el vídeo final.</p></div></div>
+          <!-- Añade assets/video-informativo.mp4 o actualiza la ruta de source cuando tengáis el vídeo. -->
+          <div class="media-panel"><video id="videoInformativo" class="is-unavailable" controls preload="metadata"><source src="assets/video-informativo.mp4" type="video/mp4" /></video><div class="media-empty"><span aria-hidden="true">▷</span><h3>El vídeo llegará pronto</h3><p>Añade el archivo final del proyecto cuando esté disponible.</p></div></div>
+        </section>
+        <section id="infoPanelPodcast" class="info-panel" role="tabpanel" aria-labelledby="infoTabPodcast" hidden>
+          <div class="content-header"><div><p class="eyebrow">Para escuchar</p><h3>Pódcast</h3><p>Espacio preparado para el audio y su descripción.</p></div></div>
+          <!-- Pódcast: edita título y descripción aquí; sustituye la ruta si el audio final tiene otro nombre. -->
+          <div class="audio-panel"><div class="audio-art" aria-hidden="true">♫</div><div><h3 id="podcastHeading">El pódcast llegará pronto</h3><p id="podcastDescription">Edita el marcador en index.html y coloca el audio en assets/podcast.mp3.</p><div id="podcastPending" class="audio-pending" role="status"><span class="pending-play" aria-hidden="true">▶</span><span><strong>Reproductor preparado</strong><small>Los controles se activarán al añadir el audio.</small></span></div><audio id="audioPodcast" controls preload="metadata" hidden><source src="assets/podcast.mp3" type="audio/mpeg" /></audio></div></div>
+        </section>
+        <section id="infoPanelCanva" class="info-panel" role="tabpanel" aria-labelledby="infoTabCanva" hidden>
+          <div class="content-header"><div><p class="eyebrow">Presentación de Canva</p><h3>Una mirada al proyecto</h3><p>La presentación aparecerá aquí cuando se configure su enlace de inserción.</p></div></div>
+          <div class="canva-layout">
+            <div id="canvaViewer" class="canva-viewer">
+              <div id="canvaPlaceholder" class="canva-placeholder"><span aria-hidden="true">▣</span><strong>Presentación pendiente</strong><p>Pega el enlace de inserción de Canva en <code>CONFIG_CANVA_EMBED_URL</code>, en js/app.js.</p></div>
+              <iframe id="canvaPresentation" src="about:blank" title="Presentación del proyecto en Canva" loading="lazy" allow="fullscreen; autoplay; clipboard-write" allowfullscreen hidden></iframe>
+            </div>
+            <div class="canva-tools">
+              <button id="canvaFullscreen" class="button button-secondary" type="button" aria-pressed="false">Ver presentación a pantalla completa</button>
+              <details class="canva-materials">
+                <summary>Consultar los 7 materiales</summary>
+                <p>Abre un material sin salir de esta presentación.</p>
+                <ol>
+                  <li><button type="button" data-material-index="0">Cañas de bambú</button></li>
+                  <li><button type="button" data-material-index="1">Paja</button></li>
+                  <li><button type="button" data-material-index="2">Corteza y piñas</button></li>
+                  <li><button type="button" data-material-index="3">Hojas secas</button></li>
+                  <li><button type="button" data-material-index="4">Tejas</button></li>
+                  <li><button type="button" data-material-index="5">Piedras</button></li>
+                  <li><button type="button" data-material-index="6">Ladrillos</button></li>
+                </ol>
+              </details>
+            </div>
+          </div>
+        </section>
+        <section id="infoPanelDesarrollada" class="info-panel" role="tabpanel" aria-labelledby="infoTabDesarrollada" hidden>
+          <div class="content-header"><div><p class="eyebrow">Para profundizar</p><h3>Información desarrollada</h3><p>Una guía para conocer mejor los refugios, los materiales y la vida del ecosistema.</p></div></div>
+          <!-- Las tarjetas se editan en INFORMACION_GENERAL, dentro de js/app.js. -->
+          <div id="infoCards" class="info-grid"></div>
+        </section>
+      </section>
+
+      <!-- ECOESCUELAS: completa el objeto ECOESCUELAS en js/app.js con la información que se recopile. -->
+      <section id="ecoescuelas" class="view content-view eco-view" aria-labelledby="eco-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Aprender y actuar</p><h2 id="eco-title">Ecoescuelas</h2><p id="ecoIntro"></p></div></div>
+        <div id="ecoCards" class="eco-grid"></div>
+      </section>
+
+      <section id="preguntas" class="view content-view faq-view" aria-labelledby="faq-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Respuestas rápidas</p><h2 id="faq-title">Preguntas frecuentes</h2><p>Abre cada tema para leer la respuesta.</p></div></div>
+        <div id="faqList" class="faq-list"></div>
+      </section>
+
+      <section id="nosotros" class="view content-view about-view" aria-labelledby="about-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Quiénes somos</p><h2 id="about-title">Sobre nosotros</h2><p id="aboutIntro"></p></div></div>
+        <!-- El texto provisional se edita en SOBRE_NOSOTROS, dentro de js/app.js. -->
+        <div id="aboutCards" class="eco-grid"></div>
+      </section>
+
+      <!-- Defensa por carriles: protege el Hotel de Insectos con sus siete materiales. -->
+      <section id="juego" class="view content-view game-view" aria-labelledby="game-title" hidden>
+        <div class="content-header"><div><p class="eyebrow">Estrategia por carriles</p><h2 id="game-title">Defiende el Hotel de Insectos</h2><p>Coloca materiales, recoge néctar y frena las plagas antes de que lleguen al hotel.</p></div></div>
+        <div class="td-layout">
+          <section class="td-play" aria-label="Partida del hotel de insectos">
+            <div class="td-dashboard" aria-label="Estado de la partida">
+              <div class="td-stat"><span>Néctar</span><strong><span aria-hidden="true">✿</span> <span id="tdNectar">250</span></strong></div>
+              <div class="td-stat"><span>Oleada</span><strong id="tdWave">Lista</strong></div>
+              <div class="td-stat"><span>Vidas</span><strong id="tdLives">♥ ♥ ♥ ♥ ♥</strong></div>
+              <div class="td-stat"><span>Plagas derrotadas</span><strong id="tdKills">0</strong></div>
+              <div class="td-stat"><span>Puntuación</span><strong id="tdScore">0</strong></div>
+            </div>
+            <div class="td-controls" aria-label="Controles de partida">
+              <button id="tdStart" class="button button-primary" type="button">Empezar oleadas</button>
+              <button id="tdPause" class="button button-secondary" type="button" disabled>Pausar</button>
+              <button id="tdReset" class="button button-secondary" type="button">Reiniciar</button>
+              <button id="tdSpeed" class="button button-secondary" type="button" aria-label="Cambiar velocidad, ahora 1 por">Velocidad 1×</button>
+            </div>
+            <p id="tdStatus" class="td-status" role="status" aria-live="polite">Prepara tu defensa. Puedes colocar materiales antes de empezar.</p>
+            <div class="td-shop-heading"><h3>Materiales defensivos</h3><span>Elige uno y toca una casilla vacía.</span></div>
+            <div id="tdShop" class="td-shop" role="toolbar" aria-label="Seleccionar uno de los siete materiales"></div>
+            <div class="td-tools-row">
+              <button id="tdShovel" class="td-shovel" type="button" aria-pressed="false"><span aria-hidden="true">⚒</span> Pala / Retirar</button>
+              <span id="tdSelection" class="td-selection">Elige un material para colocarlo en el tablero.</span>
+            </div>
+            <div id="tdBoard" class="td-board" role="group" aria-label="Tablero de defensa de cinco carriles por siete columnas">
+              <div id="tdCells" class="td-cells"></div>
+              <div class="td-hotel" aria-hidden="true"><span>⌂</span><small>Hotel<br />de insectos</small></div>
+              <div id="tdEnemies" class="td-enemies" aria-hidden="true"></div>
+              <div id="tdProjectiles" class="td-projectiles" aria-hidden="true"></div>
+              <div id="tdEffects" class="td-effects" aria-hidden="true"></div>
+              <div id="tdNectarDrops" class="td-nectar-drops" role="group" aria-label="Néctar recogible"></div>
+              <div id="tdWaveOverlay" class="td-wave-overlay" hidden></div>
+            </div>
+            <p class="td-instructions">Los enemigos avanzan de derecha a izquierda. La columna del hotel está protegida: si una plaga cruza hasta allí, pierdes una vida. Recoge las flores de néctar con toque o clic.</p>
+            <form id="tdSaveForm" class="td-save-form" hidden>
+              <div><strong id="tdResultTitle">Partida terminada</strong><p id="tdFinalSummary"></p></div>
+              <label for="tdPlayerName">Guarda tu puntuación con un apodo (no uses tu nombre completo)</label>
+              <div class="td-save-row"><input id="tdPlayerName" maxlength="18" autocomplete="nickname" placeholder="Explorador/a" required /><button class="button button-primary" type="submit">Guardar récord</button></div>
+              <p id="tdSaveFeedback" class="td-save-feedback" role="status"></p>
+            </form>
+          </section>
+          <aside class="leaderboard td-leaderboard" aria-labelledby="leaderboard-title">
+            <p class="eyebrow">Récords de este dispositivo</p><h3 id="leaderboard-title">Mejores defensas</h3>
+            <div class="td-table-wrap"><table class="td-table"><thead><tr><th scope="col">Puesto</th><th scope="col">Apodo</th><th scope="col">Oleada</th><th scope="col">Puntos</th></tr></thead><tbody id="leaderboardRows"></tbody></table></div>
+            <p class="leaderboard-note">Se guardan los diez mejores resultados en este navegador. Más adelante se puede conectar una tabla compartida.</p>
+          </aside>
+        </div>
+      </section>
+
+    </main>
+
+    <details class="section-nav">
+      <summary><span aria-hidden="true">☷</span><span>Apartados</span></summary>
+      <nav aria-label="Navegación principal">
+        <button type="button" data-go="hotel">1 · Los 7 materiales del hotel</button>
+        <button type="button" data-go="juego">2 · Juego</button>
+        <button type="button" data-go="ecoescuelas">3 · Ecoescuelas</button>
+        <button type="button" data-go="info">4 · Info</button>
+        <button type="button" data-go="preguntas">5 · Preguntas frecuentes</button>
+        <button type="button" data-go="nosotros">6 · Sobre nosotros</button>
+      </nav>
+    </details>
+
+    <nav class="quick-actions" aria-label="Acciones rápidas">
+      <button id="abrirGuia" class="quick-action" type="button"><span aria-hidden="true">☰</span><span>Qué hacer</span></button>
+      <button id="volverMenu" class="quick-action quick-home" type="button" title="Volver al menú principal"><span aria-hidden="true">⌂</span><span>Home</span></button>
+    </nav>
+    <button id="volverPortada" class="cover-home" type="button" title="Volver a la portada original"><span aria-hidden="true">←</span> Inicio</button>
+
+    <div id="modalGuia" class="modal" role="dialog" aria-modal="true" aria-labelledby="guideTitle" hidden>
+      <div class="modal-overlay" data-close-modal></div><article class="utility-card"><button class="modal-close" data-close-modal aria-label="Cerrar ventana">×</button><p class="eyebrow">Guía rápida</p><h2 id="guideTitle">¿Qué hacer?</h2><ol class="guide-steps"><li><strong>Empieza el recorrido</strong><span>Pulsa “Empezar” y, si quieres, salta la intro con su botón.</span></li><li><strong>Explora el hotel</strong><span>Toca los puntos para conocer sus materiales y huéspedes.</span></li><li><strong>Prueba las secciones</strong><span>Juega, escucha el pódcast y descubre el proyecto.</span></li><li><strong>Vuelve cuando quieras</strong><span>Usa “Home” para ir al menú y “Inicio” para volver a la portada.</span></li></ol></article>
+    </div>
+
+    <!-- Modal de cada material -->
+    <div id="modalMaterial" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+      <div class="modal-overlay" data-close-modal></div>
+      <article class="modal-card">
+        <button class="modal-close" data-close-modal aria-label="Cerrar ventana">×</button>
+        <div id="modalImage" class="modal-image"><img id="imagenInsecto" alt="" /><div class="insect-fallback">⌁<span>Imagen de insecto</span></div></div>
+        <div class="modal-content"><p id="modalNumber" class="eyebrow"></p><h2 id="modalTitle"></h2><p id="modalDescription"></p><div class="eco-note"><span aria-hidden="true">♧</span><div><strong>Función ecológica</strong><p id="modalFunction"></p></div></div></div>
+      </article>
+    </div>
+  
+    <!-- Asistente local: no necesita servicios ni claves externas. -->
+    <div class="assistant-widget">
+      <button id="assistantToggle" class="assistant-toggle" type="button" aria-controls="assistantPanel" aria-pressed="false" aria-label="Activar asistente local">
+        <span aria-hidden="true">◉</span><span id="assistantToggleLabel">Asistente · Activar</span>
+      </button>
+    </div>
+    <section id="assistantPanel" class="assistant-panel" role="region" aria-labelledby="assistantTitle" aria-describedby="assistantPrivacy" hidden inert>
+      <header class="assistant-header">
+        <div><p class="assistant-eyebrow">Guía del proyecto</p><h2 id="assistantTitle">Asistente del hotel</h2></div>
+        <button id="assistantClose" class="assistant-close" type="button" aria-label="Desactivar y cerrar el asistente">×</button>
+      </header>
+      <div id="assistantMessages" class="assistant-messages" role="log" aria-live="polite" aria-relevant="additions text" aria-label="Conversación con el asistente"></div>
+      <div id="assistantQuickQuestions" class="assistant-quick-questions" aria-label="Preguntas rápidas"></div>
+      <form id="assistantForm" class="assistant-form">
+        <label class="visually-hidden" for="assistantInput">Escribe una pregunta</label>
+        <input id="assistantInput" name="question" type="text" maxlength="320" autocomplete="off" placeholder="Escribe una pregunta…" />
+        <button class="assistant-send" type="submit">Enviar</button>
+      </form>
+      <p id="assistantPrivacy" class="assistant-privacy">Guía local: los mensajes no se envían ni se guardan. No escribas datos personales.</p>
+    </section>
+  </body>
+</html>
