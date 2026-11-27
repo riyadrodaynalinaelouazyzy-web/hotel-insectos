@@ -27,12 +27,12 @@ const MATERIALES = [
     funcion: "Dan cobijo a mariquitas y pequeños escarabajos que ayudan a controlar pulgones."
   },
   {
-    nombre: "Hojas secas", top: 61, left: 70, imagen: "assets/insectos/escarabajo.jpg",
+    nombre: "Hojas secas", top: 61, left: 37, imagen: "assets/insectos/escarabajo.jpg",
     descripcion: "Una capa de hojas mantiene la humedad y se transforma lentamente en alimento para la vida del suelo.",
     funcion: "Favorece a descomponedores y protege pequeños invertebrados durante el frío."
   },
   {
-    nombre: "Tejas", top: 61, left: 37, imagen: "assets/insectos/tijereta.jpg",
+    nombre: "Tejas", top: 61, left: 70, imagen: "assets/insectos/tijereta.jpg",
     descripcion: "Las tejas crean rendijas secas, oscuras y con una temperatura más estable que el exterior.",
     funcion: "Forman escondites seguros para arañas, tijeretas y otros visitantes nocturnos."
   },
