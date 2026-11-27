@@ -66,9 +66,9 @@ const INFORMACION_GENERAL = [
 const ECOESCUELAS = {
   intro: "Este espacio está preparado para incorporar la información del proyecto Ecoescuelas.",
   secciones: [
-    { titulo: "El proyecto", texto: "Añade aquí la presentación, el centro participante y los objetivos acordados." },
-    { titulo: "Acciones y calendario", texto: "Añade las actividades, fechas y personas responsables cuando estén confirmadas." },
-    { titulo: "Recursos y contacto", texto: "Incluye enlaces, materiales y el contacto oficial que el equipo decida publicar." }
+    { titulo: "¿Qué es?", texto: "Añade aquí la presentación, el centro participante y los objetivos acordados." },
+    { titulo: "¿Cuál es su función?", texto: "Añade las actividades, fechas y personas responsables cuando estén confirmadas." },
+    { titulo: "Relación con el instituto", texto: "Incluye enlaces, materiales y el contacto oficial que el equipo decida publicar." }
   ]
 };
 
